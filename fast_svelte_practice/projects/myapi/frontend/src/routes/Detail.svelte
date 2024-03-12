@@ -2,8 +2,9 @@
   import fastapi from "../lib/api";
   import Error from "../components/Error.svelte";
   import { push } from "svelte-spa-router";
-  import moment from 'moment/min/moment-with-locales'
-  moment.locale('ko')
+  import { is_login } from "../lib/store";
+  import moment from "moment/min/moment-with-locales";
+  moment.locale("ko");
 
   export let params = {};
   let question_id = params.question_id;
@@ -87,7 +88,12 @@
   <Error {error} />
   <form methoed="post" class="my-3">
     <div class="mb-3">
-      <textarea rows="10" bind:value={content} class="form-control" />
+      <textarea
+        rows="10"
+        bind:value={content}
+        disabled={$is_login ? "" : "disabled"}
+        class="form-control"
+      />
     </div>
     <input
       type="submit"
